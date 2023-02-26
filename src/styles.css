@@ -33,26 +33,63 @@
     font-size: 1rem;
   }
   
-  .controls .controlGroup {
+  .controls .positionControlGroup {
     margin-bottom: 0.5rem;
   }
   
-  .controls .control {
-    display: flex;
+  .controls .xControl {
     align-items: center;
     justify-content: center;
   }
   
-  .controls .control input {
+  .controls .xControl input {
     margin: 0.2rem;
     border: none;
     border-radius: 4px;
     padding: 0.1rem;
   }
   
-  .controls .control label {
+  .controls .xControl label {
     font-size: 0.8rem;
-    color: white;
+    color: rgb(115, 127, 255);
+    margin-right: 0.5rem;
+    flex: 1 1 0;
+  }
+
+  .controls .yControl {
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .controls .yControl input {
+    margin: 0.2rem;
+    border: none;
+    border-radius: 4px;
+    padding: 0.1rem;
+  }
+  
+  .controls .yControl label {
+    font-size: 0.8rem;
+    color: rgb(226, 139, 139);
+    margin-right: 0.5rem;
+    flex: 1 1 0;
+  }
+
+  .controls .zControl {
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .controls .zControl input {
+    margin: 0.2rem;
+    border: none;
+    border-radius: 4px;
+    padding: 0.1rem;
+  }
+  
+  .controls .zControl label {
+    font-size: 0.8rem;
+    color: rgb(140, 222, 146);
     margin-right: 0.5rem;
     flex: 1 1 0;
   }
