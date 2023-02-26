@@ -27,7 +27,7 @@ const Axis = ({ start, end, type }) => {
   }
 
   const points = [
-    new THREE.Vector3(0, 0, 0),
+    new THREE.Vector3(start.x, start.y, start.z),
     new THREE.Vector3(end.x, end.y, end.z),
   ];
   const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);

@@ -37,7 +37,7 @@ function App() {
             z: state.context.rotation.z,
           }}
         />
-        <Grid size={100} />
+        {/* <Grid size={100} /> */}
         {/*Line from origin to cube*/}
         <Axis
           start={{
