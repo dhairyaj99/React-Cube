@@ -51,6 +51,7 @@ function Controls(props) {
             max="100"
             onChange={handleXPositionChange}
             step="any"
+            defaultValue={0}
           />
         </div>
         <div className="yControl">
@@ -61,6 +62,7 @@ function Controls(props) {
             max="100"
             onChange={handleYPositionChange}
             step="any"
+            defaultValue={0}
           />
         </div>
         <div className="zControl">
@@ -71,6 +73,7 @@ function Controls(props) {
             max="100"
             onChange={handleZPositionChange}
             step="any"
+            defaultValue={0}
           />
         </div>
       </div>
@@ -84,6 +87,7 @@ function Controls(props) {
             max="180"
             onInput={handleXRotationChange}
             step="any"
+            defaultValue={0}
           />
         </div>
         <div className="yControl">
@@ -94,6 +98,7 @@ function Controls(props) {
             max="180"
             onInput={handleYRotationChange}
             step="any"
+            defaultValue={0}
           />
         </div>
         <div className="zControl">
@@ -104,6 +109,7 @@ function Controls(props) {
             max="180"
             onInput={handleZRotationChange}
             step="any"
+            defaultValue={0}
           />
         </div>
       </div>

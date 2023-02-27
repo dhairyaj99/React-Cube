@@ -24,7 +24,7 @@ function App() {
         <ambientLight intensity={0.05} />
         <Stars count={2000} depth={100} saturation={10} />
         {/* View Components */}
-        <Cube
+        {/* <Cube
           position={{
             x: state.context.position.x,
             y: state.context.position.y,
@@ -35,7 +35,8 @@ function App() {
             y: state.context.rotation.y,
             z: state.context.rotation.z,
           }}
-        />
+        /> */}
+        <Cube />
         <Sphere args={[0.7, 32, 16]}>
           <meshStandardMaterial color="yellow" emissive="yellow" />
         </Sphere>
