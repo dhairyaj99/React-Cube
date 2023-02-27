@@ -1,15 +1,14 @@
 import "./App.css";
-import React, { useState } from "react";
-import { Canvas, useFrame } from "react-three-fiber";
-import { OrbitControls, Stars, Text } from "@react-three/drei";
+import React from "react";
+import { Canvas } from "react-three-fiber";
+import { OrbitControls, Stars, Sphere } from "@react-three/drei";
 import "./styles.css";
-import { Line } from "three";
 
 import Cube from "./components/Cube";
 import Axis from "./components/Axis";
-import Grid from "./components/Grid";
 import Controls from "./components/Controls";
 import cubeMachine from "./components/CubeStateMachine";
+
 import { useMachine } from "@xstate/react";
 
 function App() {
@@ -17,13 +16,13 @@ function App() {
   console.log(state.context.position.x);
   return (
     <>
-      <Canvas camera={{ position: [10, 25, 100] }}>
+      <Canvas camera={{ position: [10, 10, 10] }}>
         {/* Canvas Controls */}
         <OrbitControls />
         {/* Lighting */}
         <directionalLight intensity={0.5} position={[6, 2, 1]} />
         <ambientLight intensity={0.05} />
-        <Stars />
+        <Stars count={2000} depth={100} saturation={10} />
         {/* View Components */}
         <Cube
           position={{
@@ -37,7 +36,10 @@ function App() {
             z: state.context.rotation.z,
           }}
         />
-        {/* <Grid size={100} /> */}
+        <Sphere args={[0.7, 32, 16]}>
+          <meshStandardMaterial color="yellow" emissive="yellow" />
+        </Sphere>
+
         {/*Line from origin to cube*/}
         <Axis
           start={{
