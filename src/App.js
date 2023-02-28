@@ -1,16 +1,16 @@
-import './App.css';
-import React from 'react';
-import { Canvas } from 'react-three-fiber';
-import { OrbitControls, Stars, Sphere } from '@react-three/drei';
-import './styles.css';
+import "./App.css";
+import React from "react";
+import { Canvas } from "react-three-fiber";
+import { OrbitControls, Stars, Sphere } from "@react-three/drei";
+import "./styles.css";
 
-import Cube from './components/Cube';
-import Axis from './components/Axis';
-import Controls from './components/Controls';
-import cubeMachine from './components/CubeStateMachine';
-import List from './components/List';
+import Cube from "./components/Cube";
+import Axis from "./components/Axis";
+import Controls from "./components/Controls";
+import cubeMachine from "./components/CubeStateMachine";
+import List from "./components/List";
 
-import { useMachine } from '@xstate/react';
+import { useMachine } from "@xstate/react";
 
 function App() {
   const [state, send] = useMachine(cubeMachine);
@@ -38,7 +38,7 @@ function App() {
           }}
           send={send}
         />
-        <Sphere args={[0.7, 32, 16]}>
+        <Sphere args={[0.4, 32, 16]}>
           <meshStandardMaterial color="yellow" emissive="yellow" />
         </Sphere>
 
