@@ -1,6 +1,6 @@
-import React, { useRef } from "react";
-import { useFrame } from "react-three-fiber";
-import { Vector3 } from "three";
+import React, { useRef } from 'react';
+import { useFrame } from 'react-three-fiber';
+import { Vector3 } from 'three';
 
 const Cube = (props) => {
   const { pos, rot, send } = props;
@@ -25,9 +25,9 @@ const Cube = (props) => {
     meshRef.current.position.y += 0.01 * normalizedP.y;
     meshRef.current.position.z += 0.01 * normalizedP.z;
 
-    send({ type: "MOVING", x: meshRef.current.position.x });
-    send({ type: "MOVING", y: meshRef.current.position.y });
-    send({ type: "MOVING", z: meshRef.current.position.z });
+    send({ type: 'MOVING', x: meshRef.current.position.x });
+    send({ type: 'MOVING', y: meshRef.current.position.y });
+    send({ type: 'MOVING', z: meshRef.current.position.z });
 
     const normalizedR = new Vector3(
       goalRot.x - meshRef.current.rotation.x,
@@ -39,9 +39,9 @@ const Cube = (props) => {
     meshRef.current.rotation.y += 0.01 * normalizedR.y;
     meshRef.current.rotation.z += 0.01 * normalizedR.z;
 
-    send({ type: "ROTATING", x: meshRef.current.rotation.x });
-    send({ type: "ROTATING", y: meshRef.current.rotation.y });
-    send({ type: "ROTATING", z: meshRef.current.rotation.z });
+    send({ type: 'ROTATING', x: meshRef.current.rotation.x });
+    send({ type: 'ROTATING', y: meshRef.current.rotation.y });
+    send({ type: 'ROTATING', z: meshRef.current.rotation.z });
   });
 
   return (
