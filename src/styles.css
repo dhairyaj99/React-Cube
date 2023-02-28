@@ -1,95 +1,95 @@
 /*styles.css*/
 * {
-    box-sizing: border-box;
-  }
-  
-  html,
-  body,
-  #root {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-  }
-  
-  body {
-    background: #000000;
-  }
+  box-sizing: border-box;
+}
 
-  .controls {
-    position: absolute;
-    top: 0;
-    right: 0;
-    display: flex;
-    flex-direction: column;
-    background-color: #222222;
-    opacity: 0.9;
-    border-radius: 6px;
-    padding: 1rem;
-  }
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 
-  .controls h2 {
-    color: white;
-    font-size: 1rem;
-  }
-  
-  .controls .positionControlGroup {
-    margin-bottom: 0.5rem;
-  }
-  
-  .controls .xControl {
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .controls .xControl input {
-    margin: 0.2rem;
-    border: none;
-    border-radius: 4px;
-    padding: 0.1rem;
-  }
-  
-  .controls .xControl label {
-    font-size: 0.8rem;
-    color: rgb(115, 127, 255);
-    margin-right: 0.5rem;
-    flex: 1 1 0;
-  }
+body {
+  background: #000000;
+}
 
-  .controls .yControl {
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .controls .yControl input {
-    margin: 0.2rem;
-    border: none;
-    border-radius: 4px;
-    padding: 0.1rem;
-  }
-  
-  .controls .yControl label {
-    font-size: 0.8rem;
-    color: rgb(226, 139, 139);
-    margin-right: 0.5rem;
-    flex: 1 1 0;
-  }
+.controls {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: #222222;
+  opacity: 0.9;
+  border-radius: 6px;
+  padding: 1rem;
+}
 
-  .controls .zControl {
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .controls .zControl input {
-    margin: 0.2rem;
-    border: none;
-    border-radius: 4px;
-    padding: 0.1rem;
-  }
-  
-  .controls .zControl label {
-    font-size: 0.8rem;
-    color: rgb(140, 222, 146);
-    margin-right: 0.5rem;
-    flex: 1 1 0;
-  }
+.controls h2 {
+  color: white;
+  font-size: 1rem;
+}
+
+.controls .positionControlGroup {
+  margin-bottom: 0.5rem;
+}
+
+.controls .xControl {
+  align-items: center;
+  justify-content: center;
+}
+
+.controls .xControl input {
+  margin: 0.2rem;
+  border: none;
+  border-radius: 4px;
+  padding: 0.1rem;
+}
+
+.controls .xControl label {
+  font-size: 0.8rem;
+  color: rgb(115, 127, 255);
+  margin-right: 0.5rem;
+  flex: 1 1 0;
+}
+
+.controls .yControl {
+  align-items: center;
+  justify-content: center;
+}
+
+.controls .yControl input {
+  margin: 0.2rem;
+  border: none;
+  border-radius: 4px;
+  padding: 0.1rem;
+}
+
+.controls .yControl label {
+  font-size: 0.8rem;
+  color: rgb(226, 139, 139);
+  margin-right: 0.5rem;
+  flex: 1 1 0;
+}
+
+.controls .zControl {
+  align-items: center;
+  justify-content: center;
+}
+
+.controls .zControl input {
+  margin: 0.2rem;
+  border: none;
+  border-radius: 4px;
+  padding: 0.1rem;
+}
+
+.controls .zControl label {
+  font-size: 0.8rem;
+  color: rgb(140, 222, 146);
+  margin-right: 0.5rem;
+  flex: 1 1 0;
+}

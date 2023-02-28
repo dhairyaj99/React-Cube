@@ -3,7 +3,7 @@ import { useFrame } from "react-three-fiber";
 import * as THREE from "three";
 
 const Axis = ({ start, end, type }) => {
-  const lineRef = useRef < THREE.Line > null;
+  const lineRef = useRef();
   useFrame(() => {
     if (!lineRef) {
       return;
@@ -20,6 +20,9 @@ const Axis = ({ start, end, type }) => {
       break;
     case "z":
       lineColor = "green";
+      break;
+    case "d":
+      lineColor = "purple";
       break;
     default:
       lineColor = "white";

@@ -1,44 +1,51 @@
 import React, { useRef } from "react";
 import { useFrame } from "react-three-fiber";
-import { Mesh } from "three";
+import { Vector3 } from "three";
 
-const Cube = ({ position = [20, 20, 20], rotation = [0, 0, 0] }) => {
+const Cube = (props) => {
+  const { pos, rot, send } = props;
   const meshRef = useRef();
+  var goalPos = pos;
+  var goalRot = rot;
+
   useFrame(() => {
     if (!meshRef) {
       return;
     }
 
-    //console.log(position, rotation);
-    console.log(meshRef.current.position);
-    // meshRef.position.x = position.x;
-    // meshRef.position.y = position.y;
-    // meshRef.position.z = position.z;
+    // To make the cube translate along the diagonal, we need to standardize the amount
+    // of distance left for each axis, and multiply the tranlation rates by each corresponding rate
+    const normalizedP = new Vector3(
+      goalPos.x - meshRef.current.position.x,
+      goalPos.y - meshRef.current.position.y,
+      goalPos.z - meshRef.current.position.z
+    ).normalize();
 
-    // meshRef.rotation.x = rotation.x;
-    // meshRef.rotation.y = rotation.y;
-    // meshRef.rotation.z = rotation.z;
+    meshRef.current.position.x += 0.01 * normalizedP.x;
+    meshRef.current.position.y += 0.01 * normalizedP.y;
+    meshRef.current.position.z += 0.01 * normalizedP.z;
 
-    // const progress = Math.min(clock.getElapsedTime() / 2, 1);
+    send({ type: "MOVING", x: meshRef.current.position.x });
+    send({ type: "MOVING", y: meshRef.current.position.y });
+    send({ type: "MOVING", z: meshRef.current.position.z });
 
-    if (meshRef.current.position != position) {
-      meshRef.current.position.x += 0.05;
-      meshRef.current.position.y += 0.05;
-      meshRef.current.position.z += 0.05;
-    }
-    if (meshRef.current.rotation != rotation) {
-      meshRef.current.rotation.x += 0.05;
-      meshRef.current.rotation.y += 0.05;
-      meshRef.current.rotation.z += 0.05;
-    }
+    const normalizedR = new Vector3(
+      goalRot.x - meshRef.current.rotation.x,
+      goalRot.y - meshRef.current.rotation.y,
+      goalRot.z - meshRef.current.rotation.z
+    ).normalize();
+
+    meshRef.current.rotation.x += 0.01 * normalizedR.x;
+    meshRef.current.rotation.y += 0.01 * normalizedR.y;
+    meshRef.current.rotation.z += 0.01 * normalizedR.z;
+
+    send({ type: "ROTATING", x: meshRef.current.rotation.x });
+    send({ type: "ROTATING", y: meshRef.current.rotation.y });
+    send({ type: "ROTATING", z: meshRef.current.rotation.z });
   });
 
   return (
-    <mesh
-      ref={meshRef}
-      // position={[position.x, position.y, position.z]}
-      // rotation={[rotation.x, rotation.y, rotation.z]}
-    >
+    <mesh ref={meshRef} position={[0, 0, 0]} rotation={[0, 0, 0]}>
       <boxGeometry args={[1, 1, 1]} />
       <meshStandardMaterial color="white" emissive="white" />
     </mesh>

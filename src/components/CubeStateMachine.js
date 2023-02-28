@@ -4,12 +4,22 @@ const cubeMachine = createMachine({
   id: "cube",
   initial: "idle",
   context: {
-    position: {
+    goalPosition: {
       x: 0,
       y: 0,
       z: 0,
     },
-    rotation: {
+    goalRotation: {
+      x: 0,
+      y: 0,
+      z: 0,
+    },
+    currentPosition: {
+      x: 0,
+      y: 0,
+      z: 0,
+    },
+    currentRotation: {
       x: 0,
       y: 0,
       z: 0,
@@ -22,12 +32,12 @@ const cubeMachine = createMachine({
           actions: assign((context, event) => {
             const { x, y, z } = event;
             return {
-              position: {
-                x: x !== undefined ? x : context.position.x,
-                y: y !== undefined ? y : context.position.y,
-                z: z !== undefined ? z : context.position.z,
+              goalPosition: {
+                x: x !== undefined ? x : context.goalPosition.x,
+                y: y !== undefined ? y : context.goalPosition.y,
+                z: z !== undefined ? z : context.goalPosition.z,
               },
-              rotation: context.rotation,
+              goalRotation: context.goalRotation,
             };
           }),
         },
@@ -35,11 +45,37 @@ const cubeMachine = createMachine({
           actions: assign((context, event) => {
             const { x, y, z } = event;
             return {
-              position: context.position,
-              rotation: {
-                x: x !== undefined ? x : context.rotation.x,
-                y: y !== undefined ? y : context.rotation.y,
-                z: z !== undefined ? z : context.rotation.z,
+              goalPosition: context.goalPosition,
+              goalRotation: {
+                x: x !== undefined ? x : context.goalRotation.x,
+                y: y !== undefined ? y : context.goalRotation.y,
+                z: z !== undefined ? z : context.goalRotation.z,
+              },
+            };
+          }),
+        },
+        MOVING: {
+          actions: assign((context, event) => {
+            const { x, y, z } = event;
+            return {
+              currentPosition: {
+                x: x !== undefined ? x : context.currentPosition.x,
+                y: y !== undefined ? y : context.currentPosition.y,
+                z: z !== undefined ? z : context.currentPosition.z,
+              },
+              currentRotation: context.currentRotation,
+            };
+          }),
+        },
+        ROTATING: {
+          actions: assign((context, event) => {
+            const { x, y, z } = event;
+            return {
+              currentPosition: context.currentPosition,
+              currentRotation: {
+                x: x !== undefined ? x : context.currentRotation.x,
+                y: y !== undefined ? y : context.currentRotation.y,
+                z: z !== undefined ? z : context.currentRotation.z,
               },
             };
           }),

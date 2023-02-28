@@ -13,7 +13,7 @@ import { useMachine } from "@xstate/react";
 
 function App() {
   const [state, send] = useMachine(cubeMachine);
-  console.log(state.context.position.x);
+
   return (
     <>
       <Canvas camera={{ position: [10, 10, 10] }}>
@@ -24,21 +24,32 @@ function App() {
         <ambientLight intensity={0.05} />
         <Stars count={2000} depth={100} saturation={10} />
         {/* View Components */}
-        {/* <Cube
-          position={{
-            x: state.context.position.x,
-            y: state.context.position.y,
-            z: state.context.position.z,
+        <Cube
+          pos={{
+            x: state.context.goalPosition.x,
+            y: state.context.goalPosition.y,
+            z: state.context.goalPosition.z,
           }}
-          rotation={{
-            x: state.context.rotation.x,
-            y: state.context.rotation.y,
-            z: state.context.rotation.z,
+          rot={{
+            x: state.context.goalRotation.x,
+            y: state.context.goalRotation.y,
+            z: state.context.goalRotation.z,
           }}
-        /> */}
-        <Cube />
+          send={send}
+        />
         <Sphere args={[0.7, 32, 16]}>
           <meshStandardMaterial color="yellow" emissive="yellow" />
+        </Sphere>
+
+        <Sphere
+          args={[0.4, 32, 16]}
+          position={[
+            state.context.goalPosition.x,
+            state.context.goalPosition.y,
+            state.context.goalPosition.z,
+          ]}
+        >
+          <meshStandardMaterial color="lightblue" emissive="lightblue" />
         </Sphere>
 
         {/*Line from origin to cube*/}
@@ -49,9 +60,9 @@ function App() {
             z: 0,
           }}
           end={{
-            x: state.context.position.x,
-            y: state.context.position.y,
-            z: state.context.position.z,
+            x: state.context.currentPosition.x,
+            y: state.context.currentPosition.y,
+            z: state.context.currentPosition.z,
           }}
         />
         <Axis
@@ -61,7 +72,7 @@ function App() {
             z: 0,
           }}
           end={{
-            x: state.context.position.x,
+            x: state.context.currentPosition.x,
             y: 0,
             z: 0,
           }}
@@ -69,29 +80,42 @@ function App() {
         />
         <Axis
           start={{
-            x: state.context.position.x,
+            x: state.context.currentPosition.x,
             y: 0,
             z: 0,
           }}
           end={{
-            x: state.context.position.x,
-            y: state.context.position.y,
+            x: state.context.currentPosition.x,
+            y: state.context.currentPosition.y,
             z: 0,
           }}
           type="y"
         />
         <Axis
           start={{
-            x: state.context.position.x,
-            y: state.context.position.y,
+            x: state.context.currentPosition.x,
+            y: state.context.currentPosition.y,
             z: 0,
           }}
           end={{
-            x: state.context.position.x,
-            y: state.context.position.y,
-            z: state.context.position.z,
+            x: state.context.currentPosition.x,
+            y: state.context.currentPosition.y,
+            z: state.context.currentPosition.z,
           }}
           type="z"
+        />
+        <Axis
+          start={{
+            x: state.context.currentPosition.x,
+            y: state.context.currentPosition.y,
+            z: state.context.currentPosition.z,
+          }}
+          end={{
+            x: state.context.goalPosition.x,
+            y: state.context.goalPosition.y,
+            z: state.context.goalPosition.z,
+          }}
+          type="d"
         />
       </Canvas>
       <div className="controls">

@@ -4,36 +4,54 @@ function Controls(props) {
   const { send } = props;
 
   function handleXPositionChange(event) {
+    if (!event.target.value) {
+      return;
+    }
     const newX = parseFloat(event.target.value);
     console.log("X:", newX);
     send({ type: "MOVE", x: newX });
   }
 
   function handleYPositionChange(event) {
+    if (!event.target.value) {
+      return;
+    }
     const newY = parseFloat(event.target.value);
     console.log("Y:", newY);
     send({ type: "MOVE", y: newY });
   }
 
   function handleZPositionChange(event) {
+    if (!event.target.value) {
+      return;
+    }
     const newZ = parseFloat(event.target.value);
     console.log("Z:", newZ);
     send({ type: "MOVE", z: newZ });
   }
 
   function handleXRotationChange(event) {
+    if (!event.target.value) {
+      return;
+    }
     const newX = parseFloat(event.target.value);
     console.log("X:", newX);
     send({ type: "ROTATE", x: newX });
   }
 
   function handleYRotationChange(event) {
+    if (!event.target.value) {
+      return;
+    }
     const newY = parseFloat(event.target.value);
     console.log("Y:", newY);
     send({ type: "ROTATE", y: newY });
   }
 
   function handleZRotationChange(event) {
+    if (!event.target.value) {
+      return;
+    }
     const newZ = parseFloat(event.target.value);
     console.log("Z:", newZ);
     send({ type: "ROTATE", z: newZ });
