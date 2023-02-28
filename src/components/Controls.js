@@ -34,7 +34,7 @@ function Controls(props) {
     if (!event.target.value) {
       return;
     }
-    const newX = parseFloat(event.target.value);
+    const newX = (parseFloat(event.target.value) * Math.PI) / 180;
     console.log("X:", newX);
     send({ type: "ROTATE", x: newX });
   }
@@ -43,7 +43,7 @@ function Controls(props) {
     if (!event.target.value) {
       return;
     }
-    const newY = parseFloat(event.target.value);
+    const newY = (parseFloat(event.target.value) * Math.PI) / 180;
     console.log("Y:", newY);
     send({ type: "ROTATE", y: newY });
   }
@@ -52,7 +52,7 @@ function Controls(props) {
     if (!event.target.value) {
       return;
     }
-    const newZ = parseFloat(event.target.value);
+    const newZ = (parseFloat(event.target.value) * Math.PI) / 180;
     console.log("Z:", newZ);
     send({ type: "ROTATE", z: newZ });
   }
