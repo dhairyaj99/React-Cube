@@ -61,8 +61,8 @@ function Controls(props) {
     <div className="controls">
       <h2>Position Control</h2>
       <div className="positionControlGroup">
-        <div className="xControl">
-          <label> X Position </label>
+        <div className="control">
+          <label className="labelX"> X Position </label>
           <input
             type="number"
             min="-100"
@@ -72,8 +72,8 @@ function Controls(props) {
             defaultValue={0}
           />
         </div>
-        <div className="yControl">
-          <label> Y Position </label>
+        <div className="control">
+          <label className="labelY"> Y Position </label>
           <input
             type="number"
             min="-100"
@@ -83,8 +83,8 @@ function Controls(props) {
             defaultValue={0}
           />
         </div>
-        <div className="zControl">
-          <label> Z Position </label>
+        <div className="control">
+          <label className="labelZ"> Z Position </label>
           <input
             type="number"
             min="-100"
@@ -97,8 +97,8 @@ function Controls(props) {
       </div>
       <h2>Rotation Control</h2>
       <div className="rotationControlGroup">
-        <div className="xControl">
-          <label> X Rotation </label>
+        <div className="control">
+          <label className="labelX"> X Rotation </label>
           <input
             type="number"
             min="-180"
@@ -108,8 +108,8 @@ function Controls(props) {
             defaultValue={0}
           />
         </div>
-        <div className="yControl">
-          <label> Y Rotation </label>
+        <div className="control">
+          <label className="labelY"> Y Rotation </label>
           <input
             type="number"
             min="-180"
@@ -119,8 +119,8 @@ function Controls(props) {
             defaultValue={0}
           />
         </div>
-        <div className="zControl">
-          <label> Z Rotation </label>
+        <div className="control">
+          <label className="labelZ"> Z Rotation </label>
           <input
             type="number"
             min="-180"

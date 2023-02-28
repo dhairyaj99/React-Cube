@@ -1,14 +1,29 @@
-import React, { useState } from 'react';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { generateUUID } from 'three/src/math/MathUtils';
-import Card from './Card';
+import React, { useState } from "react";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { generateUUID } from "three/src/math/MathUtils";
+import Card from "./Card";
 
 function Container() {
   const [cards, setCards] = useState([]);
-  const [newCard, setNewCard] = useState({ x: 0, y: 0, z: 0, rotation: 0 });
+  const [newCard, setNewCard] = useState({
+    px: 0,
+    py: 0,
+    pz: 0,
+    rx: 0,
+    ry: 0,
+    rz: 0,
+  });
 
   const handleAddCard = () => {
-    setNewCard({ id: generateUUID(), x: 0, y: 0, z: 0, rotation: 0 });
+    setNewCard({
+      id: generateUUID(),
+      px: 0,
+      py: 0,
+      pz: 0,
+      rx: 0,
+      ry: 0,
+      rz: 0,
+    });
     setCards([...cards, newCard]);
   };
 
@@ -37,8 +52,9 @@ function Container() {
   };
 
   return (
-    <div className="container">
-      <div>
+    <div className="controls2">
+      <h2>Scheduler</h2>
+      <div className="buttons">
         <button onClick={handleAddCard}>Add Card</button>
         <button onClick={handleExecutePosListCommands}>Execute</button>
       </div>
@@ -61,10 +77,12 @@ function Container() {
                       ref={provided.innerRef}
                     >
                       <Card
-                        x={card.x}
-                        y={card.y}
-                        z={card.z}
-                        rotation={card.rotation}
+                        px={card.px}
+                        py={card.py}
+                        pz={card.pz}
+                        rx={card.rx}
+                        ry={card.ry}
+                        rz={card.rz}
                         onChange={(updatedCard) => {
                           const newCards = [...cards];
                           newCards[index] = {

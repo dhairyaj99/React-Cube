@@ -19,7 +19,14 @@ function App() {
     <>
       <Canvas camera={{ position: [10, 10, 10] }}>
         {/* Canvas Controls */}
-        <OrbitControls />
+        <OrbitControls
+          target={[
+            state.context.currentPosition.x,
+            state.context.currentPosition.y,
+            state.context.currentPosition.z,
+          ]}
+          screenSpacePanning
+        />
         {/* Lighting */}
         <directionalLight intensity={0.5} position={[6, 2, 1]} />
         <ambientLight intensity={0.05} />
