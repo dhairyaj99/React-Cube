@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 function Card({ px, py, pz, rx, ry, rz, onChange }) {
   const [cardPX, setCardPX] = useState(px);
@@ -43,7 +43,7 @@ function Card({ px, py, pz, rx, ry, rz, onChange }) {
       <div className="control">
         <h2>Position</h2>
         <label className="labelX">
-          X:{" "}
+          X:{' '}
           <input
             type="number"
             value={cardPX}
@@ -53,7 +53,7 @@ function Card({ px, py, pz, rx, ry, rz, onChange }) {
           />
         </label>
         <label className="labelY">
-          Y:{" "}
+          Y:{' '}
           <input
             type="number"
             value={cardPY}
@@ -63,7 +63,7 @@ function Card({ px, py, pz, rx, ry, rz, onChange }) {
           />
         </label>
         <label className="labelZ">
-          Z:{" "}
+          Z:{' '}
           <input
             type="number"
             value={cardPZ}
@@ -76,7 +76,7 @@ function Card({ px, py, pz, rx, ry, rz, onChange }) {
       <div className="control">
         <h2>Rotation</h2>
         <label className="labelX">
-          X:{" "}
+          X:{' '}
           <input
             type="number"
             value={cardRX}
@@ -86,7 +86,7 @@ function Card({ px, py, pz, rx, ry, rz, onChange }) {
           />
         </label>
         <label className="labelY">
-          Y:{" "}
+          Y:{' '}
           <input
             type="number"
             value={cardRY}
@@ -96,7 +96,7 @@ function Card({ px, py, pz, rx, ry, rz, onChange }) {
           />
         </label>
         <label className="labelZ">
-          Z:{" "}
+          Z:{' '}
           <input
             type="number"
             value={cardRZ}
