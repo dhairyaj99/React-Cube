@@ -5,6 +5,7 @@ import { Vector3 } from "three";
 const Cube = (props) => {
   const { pos, rot, send } = props;
   const meshRef = useRef();
+  var startPos = pos;
   var goalPos = pos;
   var goalRot = rot;
 
@@ -12,34 +13,60 @@ const Cube = (props) => {
     if (!meshRef) {
       return;
     }
-    const speed = 0.03;
+    const speedFactor = 0.03;
 
-    // To make the cube translate along the diagonal, we need to standardize the amount
-    // of distance left for each axis, and multiply the tranlation rates by each corresponding rate
-    // same for rotation
-    const normalizedP = new Vector3(
-      goalPos.x - meshRef.current.position.x,
-      goalPos.y - meshRef.current.position.y,
-      goalPos.z - meshRef.current.position.z
-    ).normalize();
+    const xPDiff = goalPos.x - meshRef.current.position.x;
+    const yPDiff = goalPos.y - meshRef.current.position.y;
+    const zPDiff = goalPos.z - meshRef.current.position.z;
 
-    meshRef.current.position.x += speed * normalizedP.x;
-    meshRef.current.position.y += speed * normalizedP.y;
-    meshRef.current.position.z += speed * normalizedP.z;
+    const xRDiff = goalRot.x - meshRef.current.rotation.x;
+    const yRDiff = goalRot.y - meshRef.current.rotation.y;
+    const zRDiff = goalRot.z - meshRef.current.rotation.z;
 
-    send({ type: "MOVING", x: meshRef.current.position.x });
-    send({ type: "MOVING", y: meshRef.current.position.y });
-    send({ type: "MOVING", z: meshRef.current.position.z });
+    // If we are within 0.1 units of range of goal, set current position to goalPos and send "finished" trigger to state machine,
+    // Not doing this results in the cube oscillating at the goal position
+    if (
+      Math.abs(xPDiff) < 0.1 &&
+      Math.abs(yPDiff) < 0.1 &&
+      Math.abs(zPDiff) < 0.1 &&
+      Math.abs(xRDiff) < 0.1 &&
+      Math.abs(yRDiff) < 0.1 &&
+      Math.abs(zRDiff) < 0.1
+    ) {
+      meshRef.current.position.x = goalPos.x;
+      meshRef.current.position.y = goalPos.y;
+      meshRef.current.position.z = goalPos.z;
+      meshRef.current.rotation.x = goalRot.x;
+      meshRef.current.rotation.y = goalRot.y;
+      meshRef.current.rotation.z = goalRot.z;
 
-    const normalizedR = new Vector3(
-      goalRot.x - meshRef.current.rotation.x,
-      goalRot.y - meshRef.current.rotation.y,
-      goalRot.z - meshRef.current.rotation.z
-    ).normalize();
+      send({ type: "MOVING", x: goalPos.x, y: goalPos.y, z: goalPos.z });
+      send({ type: "ROTATING", x: goalRot.x, y: goalRot.y, z: goalRot.z });
+      send({ type: "FINISHED" });
+      return;
+    }
 
-    meshRef.current.rotation.x += 0.01 * normalizedR.x;
-    meshRef.current.rotation.y += 0.01 * normalizedR.y;
-    meshRef.current.rotation.z += 0.01 * normalizedR.z;
+    // calculate the current position
+    const normalizedP = new Vector3(xPDiff, yPDiff, zPDiff).normalize();
+
+    meshRef.current.position.x += speedFactor * normalizedP.x;
+    meshRef.current.position.y += speedFactor * normalizedP.y;
+    meshRef.current.position.z += speedFactor * normalizedP.z;
+
+    send({
+      type: "MOVING",
+      x: meshRef.current.position.x,
+      y: meshRef.current.position.y,
+      z: meshRef.current.position.z,
+    });
+
+    // Using the percentage of completion of the position of the cube, calculate the rotation so that the cube
+    // slowly rotates while the cube is translating. The percentage of completion will be the normalized version of
+    // the vector containing the distances left to traverse (normalizedP above)
+
+    meshRef.current.rotation.x = xRDiff * Math.abs(normalizedP.x);
+    meshRef.current.rotation.y = yRDiff * Math.abs(normalizedP.y);
+    meshRef.current.rotation.z = zRDiff * Math.abs(normalizedP.z);
 
     send({ type: "ROTATING", x: meshRef.current.rotation.x });
     send({ type: "ROTATING", y: meshRef.current.rotation.y });

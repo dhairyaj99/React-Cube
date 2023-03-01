@@ -6,14 +6,18 @@ import "./styles.css";
 
 import Cube from "./components/Cube";
 import Axis from "./components/Axis";
-import Controls from "./components/Controls";
+// import Controls from "./components/Controls";
+import Controls from "./components/Controls2";
 import cubeMachine from "./components/CubeStateMachine";
 import List from "./components/List";
 
 import { useMachine } from "@xstate/react";
 
+const machine = cubeMachine;
+
 function App() {
-  const [state, send] = useMachine(cubeMachine);
+  const [state, send] = useMachine(machine);
+  console.log(state);
 
   return (
     <>

@@ -28,7 +28,7 @@ const cubeMachine = createMachine({
   states: {
     idle: {
       on: {
-        MOVE: {
+        SETPOS: {
           actions: assign((context, event) => {
             const { x, y, z } = event;
             return {
@@ -41,7 +41,7 @@ const cubeMachine = createMachine({
             };
           }),
         },
-        ROTATE: {
+        SETROT: {
           actions: assign((context, event) => {
             const { x, y, z } = event;
             return {
@@ -54,6 +54,13 @@ const cubeMachine = createMachine({
             };
           }),
         },
+        EXECUTE: {
+          target: "inProgress",
+        },
+      },
+    },
+    inProgress: {
+      on: {
         MOVING: {
           actions: assign((context, event) => {
             const { x, y, z } = event;
@@ -79,6 +86,9 @@ const cubeMachine = createMachine({
               },
             };
           }),
+        },
+        FINISHED: {
+          target: "idle",
         },
       },
     },
