@@ -78,10 +78,10 @@ function Controls(props) {
       <div className="buttons">
         <button onClick={handleExecuteTransformation}>Execute</button>
       </div>
-      <h2>Position</h2>
+      <h2>Translation</h2>
       <div className="positionControlGroup">
         <div className="control">
-          <label className="labelX"> X Position </label>
+          <label className="labelX"> X Translate </label>
           <input
             type="number"
             min="-100"
@@ -91,7 +91,7 @@ function Controls(props) {
           />
         </div>
         <div className="control">
-          <label className="labelY"> Y Position </label>
+          <label className="labelY"> Y Translate </label>
           <input
             type="number"
             min="-100"
@@ -101,7 +101,7 @@ function Controls(props) {
           />
         </div>
         <div className="control">
-          <label className="labelZ"> Z Position </label>
+          <label className="labelZ"> Z Translate </label>
           <input
             type="number"
             min="-100"
@@ -114,7 +114,7 @@ function Controls(props) {
       <h2>Rotation</h2>
       <div className="rotationControlGroup">
         <div className="control">
-          <label className="labelX"> X Rotation </label>
+          <label className="labelX"> X Rotate </label>
           <input
             type="number"
             min="-180"
@@ -124,7 +124,7 @@ function Controls(props) {
           />
         </div>
         <div className="control">
-          <label className="labelY"> Y Rotation </label>
+          <label className="labelY"> Y Rotate </label>
           <input
             type="number"
             min="-180"
@@ -134,7 +134,7 @@ function Controls(props) {
           />
         </div>
         <div className="control">
-          <label className="labelZ"> Z Rotation </label>
+          <label className="labelZ"> Z Rotate </label>
           <input
             type="number"
             min="-180"
@@ -143,6 +143,27 @@ function Controls(props) {
             step="any"
           />
         </div>
+      </div>
+      <h2>Current Pose</h2>
+      <div className="pose">
+        <label className="labelX">
+          X Pos: {state.context.currentPosition.x}
+        </label>
+        <label className="labelY">
+          Y Pos: {state.context.currentPosition.y}
+        </label>
+        <label className="labelZ">
+          Z Pos: {state.context.currentPosition.z}
+        </label>
+        <label className="labelX">
+          X Rot: {state.context.currentRotation.x}
+        </label>
+        <label className="labelY">
+          Y Rot: {state.context.currentRotation.y}
+        </label>
+        <label className="labelZ">
+          Z Rot: {state.context.currentRotation.z}
+        </label>
       </div>
     </div>
   );
