@@ -6,7 +6,6 @@ import "./styles.css";
 
 import Cube from "./components/Cube2";
 import Axis from "./components/Axis";
-// import Controls from "./components/Controls";
 import Controls from "./components/Controls2";
 import cubeMachine from "./components/CubeStateMachine";
 import List from "./components/List";

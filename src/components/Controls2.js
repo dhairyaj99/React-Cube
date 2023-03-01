@@ -42,7 +42,7 @@ function Controls(props) {
     }
     setRX(
       (parseFloat(state.context.startRotation.x) * Math.PI) / 180 +
-        (parseFloat(event.target.value) * Math.PI) / 180
+      (parseFloat(event.target.value) * Math.PI) / 180
     );
   }
 
@@ -52,7 +52,7 @@ function Controls(props) {
     }
     setRY(
       (parseFloat(state.context.startRotation.y) * Math.PI) / 180 +
-        (parseFloat(event.target.value) * Math.PI) / 180
+      (parseFloat(event.target.value) * Math.PI) / 180
     );
   }
 
@@ -62,7 +62,7 @@ function Controls(props) {
     }
     setRZ(
       (parseFloat(state.context.startRotation.z) * Math.PI) / 180 +
-        (parseFloat(event.target.value) * Math.PI) / 180
+      (parseFloat(event.target.value) * Math.PI) / 180
     );
   }
 
@@ -78,8 +78,9 @@ function Controls(props) {
       <div className="buttons">
         <button onClick={handleExecuteTransformation}>Execute</button>
       </div>
-      <h2>Translation</h2>
+      
       <div className="positionControlGroup">
+        <h2>Translation</h2>
         <div className="control">
           <label className="labelX"> X Translate </label>
           <input
@@ -111,8 +112,9 @@ function Controls(props) {
           />
         </div>
       </div>
-      <h2>Rotation</h2>
+      
       <div className="rotationControlGroup">
+        <h2>Rotation</h2>
         <div className="control">
           <label className="labelX"> X Rotate </label>
           <input
@@ -144,26 +146,27 @@ function Controls(props) {
           />
         </div>
       </div>
-      <h2>Current Pose</h2>
-      <div className="pose">
+      
+      <div className="pose"><div>
+        <h2>Current Pose</h2>
         <label className="labelX">
-          X Pos: {state.context.currentPosition.x}
-        </label>
-        <label className="labelY">
-          Y Pos: {state.context.currentPosition.y}
-        </label>
-        <label className="labelZ">
-          Z Pos: {state.context.currentPosition.z}
-        </label>
-        <label className="labelX">
-          X Rot: {state.context.currentRotation.x}
-        </label>
-        <label className="labelY">
-          Y Rot: {state.context.currentRotation.y}
-        </label>
-        <label className="labelZ">
-          Z Rot: {state.context.currentRotation.z}
-        </label>
+          X Pos: {(state.context.currentPosition.x).toFixed(2)}
+        </label></div><div>
+          <label className="labelY">
+            Y Pos: {(state.context.currentPosition.y).toFixed(2)}
+          </label></div><div>
+          <label className="labelZ">
+            Z Pos: {(state.context.currentPosition.z).toFixed(2)}
+          </label></div><div>
+          <label className="labelX">
+            X Rot: {(state.context.currentRotation.x).toFixed(2)}
+          </label></div><div>
+          <label className="labelY">
+            Y Rot: {(state.context.currentRotation.y).toFixed(2)}
+          </label></div><div>
+          <label className="labelZ">
+            Z Rot: {(state.context.currentRotation.z).toFixed(2)}
+          </label></div>
       </div>
     </div>
   );

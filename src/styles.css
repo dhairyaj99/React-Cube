@@ -31,6 +31,7 @@ body {
 .controls h2 {
   color: white;
   font-size: 1rem;
+  margin-bottom: 0rem;
 }
 
 .controls .positionControlGroup {
@@ -110,6 +111,27 @@ body {
   height: 50px;
   color: white;
   font-size: 1rem;
+}
+
+.pose .labelX {
+  font-size: 0.8rem;
+  color: rgb(115, 127, 255);
+  margin-right: 0.5rem;
+  flex: 1 1 0;
+}
+
+.pose .labelY {
+  font-size: 0.8rem;
+  color: rgb(226, 139, 139);
+  margin-right: 0.5rem;
+  flex: 1 1 0;
+}
+
+.pose .labelZ {
+  font-size: 0.8rem;
+  color: rgb(140, 222, 146);
+  margin-right: 0.5rem;
+  flex: 1 1 0;
 }
 
 .container {
