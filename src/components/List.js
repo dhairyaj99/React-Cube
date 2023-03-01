@@ -1,9 +1,11 @@
-import React, { useState } from "react";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { generateUUID } from "three/src/math/MathUtils";
-import Card from "./Card";
+import { waitFor } from '@testing-library/react';
+import React, { useState, useMemo, useCallback } from 'react';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { generateUUID } from 'three/src/math/MathUtils';
+import Card from './Card';
 
-function Container() {
+function Container(props) {
+  const { state, send, service } = props;
   const [cards, setCards] = useState([]);
   const [newCard, setNewCard] = useState({
     px: 0,
@@ -27,27 +29,64 @@ function Container() {
     setCards([...cards, newCard]);
   };
 
-  const handleRemoveCard = (index) => {
-    // Remove a card from the list at the given index
-    const newCards = [...cards];
-    newCards.splice(index, 1);
+  const handleRemoveCard = (cardId) => {
+    const newCards = cards.filter((card) => card.id !== cardId);
     setCards(newCards);
   };
 
-  const handleUpdateCardPosition = (result) => {
-    // Update the position of a card in the list after it is dragged
-    const { source, destination } = result;
-    if (!destination) return; // Card was dropped outside the list
-    const newCards = [...cards];
-    const [removed] = newCards.splice(source.index, 1);
-    newCards.splice(destination.index, 0, removed);
-    setCards(newCards.map((card) => ({ ...card })));
-  };
+  const handleUpdateCardPosition = useCallback(
+    (result) => {
+      // Update the position of a card in the list after it is dragged
+      const { source, destination } = result;
 
-  const handleExecutePosListCommands = () => {
+      if (!destination || source.index === destination.index) {
+        return; // Card was dropped outside the list
+      }
+
+      const newCards = [...cards];
+      const [removed] = newCards.splice(source.index, 1);
+
+      newCards.splice(destination.index, 0, removed);
+      setCards(newCards.map((card) => ({ ...card })));
+    },
+    [cards]
+  );
+
+  const handleExecutePosListCommands = async () => {
+    // let currTopCard = cards[0];
+    // console.log(currTopCard);
+
     console.log(cards.length);
-    for (let cardIdx = 0; cardIdx < cards.length; cardIdx++) {
-      console.log(cards[cardIdx]);
+
+    // let px = currTopCard.px;
+    // let py = currTopCard.py;
+    // let pz = currTopCard.pz;
+    // let rx = currTopCard.rx;
+    // let ry = currTopCard.ry;
+    // let rz = currTopCard.rz;
+
+    // send({ type: 'SETPOS', x: px, y: py, z: pz });
+    // send({ type: 'SETROT', x: rx, y: ry, z: rz });
+    // send({ type: 'EXECUTE' });
+
+    while (state.value === 'idle' && cards.length != 0) {
+      let currTopCard = cards.shift();
+      if (!currTopCard) break;
+
+      let px = currTopCard.px;
+      let py = currTopCard.py;
+      let pz = currTopCard.px;
+      let rx = currTopCard.px;
+      let ry = currTopCard.px;
+      let rz = currTopCard.px;
+
+      send({ type: 'SETPOS', x: px, y: py, z: pz });
+      send({ type: 'SETROT', x: rx, y: ry, z: rz });
+      send({ type: 'EXECUTE' });
+      const doneState = await waitFor(service, (state) =>
+        state.matches('idle')
+      );
+      setCards(cards);
     }
   };
 
@@ -92,6 +131,9 @@ function Container() {
                           setCards(newCards);
                         }}
                       />
+                      <button onClick={() => handleRemoveCard(card.id)}>
+                        X
+                      </button>
                     </div>
                   )}
                 </Draggable>
