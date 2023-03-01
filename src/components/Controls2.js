@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 function Controls(props) {
-  const { send } = props;
+  const { send, state } = props;
   const [PX, setPX] = useState(0);
   const [PY, setPY] = useState(0);
   const [PZ, setPZ] = useState(0);
@@ -13,42 +13,57 @@ function Controls(props) {
     if (!event.target.value) {
       setPX(0);
     }
-    setPX(parseFloat(event.target.value));
+    setPX(
+      parseFloat(state.context.startPosition.x) + parseFloat(event.target.value)
+    );
   }
 
   function handleYPositionChange(event) {
     if (!event.target.value) {
       setPY(0);
     }
-    setPY(parseFloat(event.target.value));
+    setPY(
+      parseFloat(state.context.startPosition.y) + parseFloat(event.target.value)
+    );
   }
 
   function handleZPositionChange(event) {
     if (!event.target.value) {
       setPZ(0);
     }
-    setPZ(parseFloat(event.target.value));
+    setPZ(
+      parseFloat(state.context.startPosition.z) + parseFloat(event.target.value)
+    );
   }
 
   function handleXRotationChange(event) {
     if (!event.target.value) {
       setRX(0);
     }
-    setRX((parseFloat(event.target.value) * Math.PI) / 180);
+    setRX(
+      (parseFloat(state.context.startRotation.x) * Math.PI) / 180 +
+        (parseFloat(event.target.value) * Math.PI) / 180
+    );
   }
 
   function handleYRotationChange(event) {
     if (!event.target.value) {
       setRY(0);
     }
-    setRY((parseFloat(event.target.value) * Math.PI) / 180);
+    setRY(
+      (parseFloat(state.context.startRotation.y) * Math.PI) / 180 +
+        (parseFloat(event.target.value) * Math.PI) / 180
+    );
   }
 
   function handleZRotationChange(event) {
     if (!event.target.value) {
       setRZ(0);
     }
-    setRZ((parseFloat(event.target.value) * Math.PI) / 180);
+    setRZ(
+      (parseFloat(state.context.startRotation.z) * Math.PI) / 180 +
+        (parseFloat(event.target.value) * Math.PI) / 180
+    );
   }
 
   const handleExecuteTransformation = () => {

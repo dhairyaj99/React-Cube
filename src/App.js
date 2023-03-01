@@ -46,19 +46,23 @@ function App() {
             y: state.context.goalRotation.y,
             z: state.context.goalRotation.z,
           }}
-          startpos={{
-            x: state.context.startPosition.x,
-            y: state.context.startPosition.y,
-            z: state.context.startPosition.z,
-          }}
-          startrot={{
-            x: state.context.startRotation.x,
-            y: state.context.startRotation.y,
-            z: state.context.startRotation.z,
-          }}
           send={send}
           state={state}
         />
+        {/* <Cube
+          pos={{
+            x: state.context.goalPosition.x,
+            y: state.context.goalPosition.y,
+            z: state.context.goalPosition.z,
+          }}
+          rot={{
+            x: state.context.goalRotation.x,
+            y: state.context.goalRotation.y,
+            z: state.context.goalRotation.z,
+          }}
+          send={send}
+          machineState={state}
+        /> */}
         <Sphere args={[0.4, 32, 16]}>
           <meshStandardMaterial color="yellow" emissive="yellow" />
         </Sphere>
@@ -141,7 +145,7 @@ function App() {
         />
       </Canvas>
       <div className="controls">
-        <Controls send={send} />
+        <Controls send={send} state={state} />
         <List />
       </div>
     </>

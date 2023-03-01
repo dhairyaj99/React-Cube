@@ -1,26 +1,24 @@
 import React, { useRef } from "react";
 import { useFrame } from "react-three-fiber";
 import { Vector3 } from "three";
-import { State, matchesState } from "xstate";
 
 const Cube = (props) => {
-  const { startpos, pos, startrot, rot, send, state } = props;
+  const { pos, rot, send, state } = props;
   const meshRef = useRef();
   var goalPos = pos;
   var goalRot = rot;
-  var startPos = startpos;
-  var startRot = startrot;
 
   useFrame((self) => {
     if (!meshRef) {
       return;
     }
 
-    if (state.value == "idle") {
+    if (state.value === "idle") {
       return;
     }
 
-    const speedFactor = 0.03;
+    const speedFactorP = 0.03;
+    const speedFactorR = 0.01;
 
     const xPDiff = goalPos.x - meshRef.current.position.x;
     const yPDiff = goalPos.y - meshRef.current.position.y;
@@ -30,22 +28,28 @@ const Cube = (props) => {
     const yRDiff = goalRot.y - meshRef.current.rotation.y;
     const zRDiff = goalRot.z - meshRef.current.rotation.z;
 
+    console.log("R DIFFS", xRDiff, yRDiff, zRDiff);
+
     console.log(
       "CURRENT POS",
       meshRef.current.position.x,
       meshRef.current.position.y,
-      meshRef.current.position.z
+      meshRef.current.position.z,
+      "CURRENT ROT",
+      meshRef.current.rotation.x,
+      meshRef.current.rotation.y,
+      meshRef.current.rotation.z
     );
 
     // If we are within 0.1 units of range of goal, set current position to goalPos and send "finished" trigger to state machine,
     // Not doing this results in the cube oscillating at the goal position
     if (
-      Math.abs(xPDiff) < 0.2 &&
-      Math.abs(yPDiff) < 0.2 &&
-      Math.abs(zPDiff) < 0.2 &&
-      Math.abs(xRDiff) < 0.2 &&
-      Math.abs(yRDiff) < 0.2 &&
-      Math.abs(zRDiff) < 0.2
+      Math.abs(xPDiff) < 0.1 &&
+      Math.abs(yPDiff) < 0.1 &&
+      Math.abs(zPDiff) < 0.1 &&
+      Math.abs(xRDiff) < 2 &&
+      Math.abs(yRDiff) < 2 &&
+      Math.abs(zRDiff) < 2
     ) {
       meshRef.current.position.x = goalPos.x;
       meshRef.current.position.y = goalPos.y;
@@ -66,9 +70,9 @@ const Cube = (props) => {
 
     const normalizedP = new Vector3(xPDiff, yPDiff, zPDiff).normalize();
 
-    meshRef.current.position.x += speedFactor * normalizedP.x;
-    meshRef.current.position.y += speedFactor * normalizedP.y;
-    meshRef.current.position.z += speedFactor * normalizedP.z;
+    meshRef.current.position.x += speedFactorP * normalizedP.x;
+    meshRef.current.position.y += speedFactorP * normalizedP.y;
+    meshRef.current.position.z += speedFactorP * normalizedP.z;
 
     send({
       type: "MOVING",
@@ -83,12 +87,38 @@ const Cube = (props) => {
     // slowly rotates while the cube is translating. The percentage of completion will be the normalized version of
     // the vector containing the distances left to traverse (normalizedP above)
 
-    console.log(
-      "START POS",
-      state.context.startPosition,
-      "START ROT",
-      state.context.startRotation
-    );
+    const normalizedR = new Vector3(xRDiff, yRDiff, zRDiff).normalize();
+
+    meshRef.current.rotation.x += speedFactorR * normalizedR.x;
+    meshRef.current.rotation.y += speedFactorR * normalizedR.y;
+    meshRef.current.rotation.z += speedFactorR * normalizedR.z;
+
+    send({
+      type: "ROTATING",
+      x: meshRef.current.rotation.x,
+      y: meshRef.current.rotation.y,
+      z: meshRef.current.rotation.z,
+    });
+
+    // var currentDist = new Vector3(
+    //   meshRef.current.position.x - state.context.startPosition.x,
+    //   meshRef.current.position.y - state.context.startPosition.y,
+    //   meshRef.current.position.z - state.context.startPosition.z
+    // ).length();
+    // var total = new Vector3(
+    //   goalPos.x - state.context.startPosition.x,
+    //   goalPos.y - state.context.startPosition.y,
+    //   goalPos.z - state.context.startPosition.z
+    // ).length();
+    // var progress = currentDist / total;
+    // console.log("Progress ", progress);
+
+    // meshRef.current.rotation.x =
+    //   (goalRot.x - state.context.startRotation.x) * progress;
+    // meshRef.current.rotation.y =
+    //   (goalRot.y - state.context.startRotation.y) * progress;
+    // meshRef.current.rotation.z =
+    //   (goalRot.z - state.context.startRotation.z) * progress;
   });
 
   return (
