@@ -69,10 +69,11 @@ function Container(props) {
     // send({ type: 'SETROT', x: rx, y: ry, z: rz });
     // send({ type: 'EXECUTE' });
 
-    while (state.value === 'idle' && cards.length != 0) {
+    while (true) {
+      console.log(cards.length);
       let currTopCard = cards.shift();
       if (!currTopCard) break;
-
+      
       let px = currTopCard.px;
       let py = currTopCard.py;
       let pz = currTopCard.px;
@@ -86,7 +87,9 @@ function Container(props) {
       const doneState = await waitFor(service, (state) =>
         state.matches('idle')
       );
-      setCards(cards);
+      if(cards.length<1)break;
+      else setCards(cards);
+      console.log(state.value);
     }
   };
 

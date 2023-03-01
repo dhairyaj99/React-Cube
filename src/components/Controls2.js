@@ -87,7 +87,7 @@ function Controls(props) {
             type="number"
             min="-100"
             max="100"
-            onChange={handleXPositionChange}
+            onInput={handleXPositionChange}
             step="any"
           />
         </div>
@@ -97,7 +97,7 @@ function Controls(props) {
             type="number"
             min="-100"
             max="100"
-            onChange={handleYPositionChange}
+            onInput={handleYPositionChange}
             step="any"
           />
         </div>
@@ -107,7 +107,7 @@ function Controls(props) {
             type="number"
             min="-100"
             max="100"
-            onChange={handleZPositionChange}
+            onInput={handleZPositionChange}
             step="any"
           />
         </div>

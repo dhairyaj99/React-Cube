@@ -144,8 +144,8 @@ function App() {
         />
       </Canvas>
       <div className="controls">
-        <Controls send={send} state={state} />
-        <List />
+        <Controls send={send} state={state}/>
+        <List send={send} state={state}  />
       </div>
     </>
   );
