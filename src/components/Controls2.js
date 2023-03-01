@@ -73,7 +73,6 @@ function Controls(props) {
             max="100"
             onChange={handleXPositionChange}
             step="any"
-            value={PX}
           />
         </div>
         <div className="control">
@@ -84,7 +83,6 @@ function Controls(props) {
             max="100"
             onChange={handleYPositionChange}
             step="any"
-            value={PY}
           />
         </div>
         <div className="control">
@@ -95,7 +93,6 @@ function Controls(props) {
             max="100"
             onChange={handleZPositionChange}
             step="any"
-            value={PZ}
           />
         </div>
       </div>

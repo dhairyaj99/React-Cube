@@ -1,18 +1,25 @@
 import React, { useRef } from "react";
 import { useFrame } from "react-three-fiber";
 import { Vector3 } from "three";
+import { State, matchesState } from "xstate";
 
 const Cube = (props) => {
-  const { pos, rot, send } = props;
+  const { startpos, pos, startrot, rot, send, state } = props;
   const meshRef = useRef();
-  var startPos = pos;
   var goalPos = pos;
   var goalRot = rot;
+  var startPos = startpos;
+  var startRot = startrot;
 
-  useFrame(() => {
+  useFrame((self) => {
     if (!meshRef) {
       return;
     }
+
+    if (state.value == "idle") {
+      return;
+    }
+
     const speedFactor = 0.03;
 
     const xPDiff = goalPos.x - meshRef.current.position.x;
@@ -23,15 +30,22 @@ const Cube = (props) => {
     const yRDiff = goalRot.y - meshRef.current.rotation.y;
     const zRDiff = goalRot.z - meshRef.current.rotation.z;
 
+    console.log(
+      "CURRENT POS",
+      meshRef.current.position.x,
+      meshRef.current.position.y,
+      meshRef.current.position.z
+    );
+
     // If we are within 0.1 units of range of goal, set current position to goalPos and send "finished" trigger to state machine,
     // Not doing this results in the cube oscillating at the goal position
     if (
-      Math.abs(xPDiff) < 0.1 &&
-      Math.abs(yPDiff) < 0.1 &&
-      Math.abs(zPDiff) < 0.1 &&
-      Math.abs(xRDiff) < 0.1 &&
-      Math.abs(yRDiff) < 0.1 &&
-      Math.abs(zRDiff) < 0.1
+      Math.abs(xPDiff) < 0.2 &&
+      Math.abs(yPDiff) < 0.2 &&
+      Math.abs(zPDiff) < 0.2 &&
+      Math.abs(xRDiff) < 0.2 &&
+      Math.abs(yRDiff) < 0.2 &&
+      Math.abs(zRDiff) < 0.2
     ) {
       meshRef.current.position.x = goalPos.x;
       meshRef.current.position.y = goalPos.y;
@@ -40,13 +54,16 @@ const Cube = (props) => {
       meshRef.current.rotation.y = goalRot.y;
       meshRef.current.rotation.z = goalRot.z;
 
-      send({ type: "MOVING", x: goalPos.x, y: goalPos.y, z: goalPos.z });
-      send({ type: "ROTATING", x: goalRot.x, y: goalRot.y, z: goalRot.z });
+      // Since we are finished with this transformation, set the start pos and rot to the current pos and rot,
+      // this means we will be able to reference it in the next transformation
+      send({ type: "SETSTARTPOS", x: goalPos.x, y: goalPos.y, z: goalPos.z });
+      send({ type: "SETSTARTROT", x: goalRot.x, y: goalRot.y, z: goalRot.z });
       send({ type: "FINISHED" });
       return;
     }
 
-    // calculate the current position
+    // ---------------------- calculate the current position
+
     const normalizedP = new Vector3(xPDiff, yPDiff, zPDiff).normalize();
 
     meshRef.current.position.x += speedFactor * normalizedP.x;
@@ -60,17 +77,18 @@ const Cube = (props) => {
       z: meshRef.current.position.z,
     });
 
+    //----------------------- calculate the current rotation based on position
+
     // Using the percentage of completion of the position of the cube, calculate the rotation so that the cube
     // slowly rotates while the cube is translating. The percentage of completion will be the normalized version of
     // the vector containing the distances left to traverse (normalizedP above)
 
-    meshRef.current.rotation.x = xRDiff * Math.abs(normalizedP.x);
-    meshRef.current.rotation.y = yRDiff * Math.abs(normalizedP.y);
-    meshRef.current.rotation.z = zRDiff * Math.abs(normalizedP.z);
-
-    send({ type: "ROTATING", x: meshRef.current.rotation.x });
-    send({ type: "ROTATING", y: meshRef.current.rotation.y });
-    send({ type: "ROTATING", z: meshRef.current.rotation.z });
+    console.log(
+      "START POS",
+      state.context.startPosition,
+      "START ROT",
+      state.context.startRotation
+    );
   });
 
   return (

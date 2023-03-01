@@ -18,7 +18,6 @@ const machine = cubeMachine;
 function App() {
   const [state, send] = useMachine(machine);
   console.log(state);
-
   return (
     <>
       <Canvas camera={{ position: [10, 10, 10] }}>
@@ -47,7 +46,18 @@ function App() {
             y: state.context.goalRotation.y,
             z: state.context.goalRotation.z,
           }}
+          startpos={{
+            x: state.context.startPosition.x,
+            y: state.context.startPosition.y,
+            z: state.context.startPosition.z,
+          }}
+          startrot={{
+            x: state.context.startRotation.x,
+            y: state.context.startRotation.y,
+            z: state.context.startRotation.z,
+          }}
           send={send}
+          state={state}
         />
         <Sphere args={[0.4, 32, 16]}>
           <meshStandardMaterial color="yellow" emissive="yellow" />
