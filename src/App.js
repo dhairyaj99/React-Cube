@@ -4,7 +4,7 @@ import { Canvas } from "react-three-fiber";
 import { OrbitControls, Stars, Sphere } from "@react-three/drei";
 import "./styles.css";
 
-import Cube from "./components/Cube";
+import Cube from "./components/Cube2";
 import Axis from "./components/Axis";
 // import Controls from "./components/Controls";
 import Controls from "./components/Controls2";
@@ -35,20 +35,6 @@ function App() {
         <ambientLight intensity={0.05} />
         <Stars count={2000} depth={100} saturation={10} />
         {/* View Components */}
-        <Cube
-          pos={{
-            x: state.context.goalPosition.x,
-            y: state.context.goalPosition.y,
-            z: state.context.goalPosition.z,
-          }}
-          rot={{
-            x: state.context.goalRotation.x,
-            y: state.context.goalRotation.y,
-            z: state.context.goalRotation.z,
-          }}
-          send={send}
-          state={state}
-        />
         {/* <Cube
           pos={{
             x: state.context.goalPosition.x,
@@ -61,8 +47,22 @@ function App() {
             z: state.context.goalRotation.z,
           }}
           send={send}
-          machineState={state}
+          state={state}
         /> */}
+        <Cube
+          pos={{
+            x: state.context.goalPosition.x,
+            y: state.context.goalPosition.y,
+            z: state.context.goalPosition.z,
+          }}
+          rot={{
+            x: state.context.goalRotation.x,
+            y: state.context.goalRotation.y,
+            z: state.context.goalRotation.z,
+          }}
+          send={send}
+          machineState={state}
+        />
         <Sphere args={[0.4, 32, 16]}>
           <meshStandardMaterial color="yellow" emissive="yellow" />
         </Sphere>
