@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 function Controls(props) {
-  const { send } = props;
+  const { send, state } = props;
   const [PX, setPX] = useState(0);
   const [PY, setPY] = useState(0);
   const [PZ, setPZ] = useState(0);
@@ -13,42 +13,57 @@ function Controls(props) {
     if (!event.target.value) {
       setPX(0);
     }
-    setPX(parseFloat(event.target.value));
+    setPX(
+      parseFloat(state.context.startPosition.x) + parseFloat(event.target.value)
+    );
   }
 
   function handleYPositionChange(event) {
     if (!event.target.value) {
       setPY(0);
     }
-    setPY(parseFloat(event.target.value));
+    setPY(
+      parseFloat(state.context.startPosition.y) + parseFloat(event.target.value)
+    );
   }
 
   function handleZPositionChange(event) {
     if (!event.target.value) {
       setPZ(0);
     }
-    setPZ(parseFloat(event.target.value));
+    setPZ(
+      parseFloat(state.context.startPosition.z) + parseFloat(event.target.value)
+    );
   }
 
   function handleXRotationChange(event) {
     if (!event.target.value) {
       setRX(0);
     }
-    setRX((parseFloat(event.target.value) * Math.PI) / 180);
+    setRX(
+      (parseFloat(state.context.startRotation.x) * Math.PI) / 180 +
+        (parseFloat(event.target.value) * Math.PI) / 180
+    );
   }
 
   function handleYRotationChange(event) {
     if (!event.target.value) {
       setRY(0);
     }
-    setRY((parseFloat(event.target.value) * Math.PI) / 180);
+    setRY(
+      (parseFloat(state.context.startRotation.y) * Math.PI) / 180 +
+        (parseFloat(event.target.value) * Math.PI) / 180
+    );
   }
 
   function handleZRotationChange(event) {
     if (!event.target.value) {
       setRZ(0);
     }
-    setRZ((parseFloat(event.target.value) * Math.PI) / 180);
+    setRZ(
+      (parseFloat(state.context.startRotation.z) * Math.PI) / 180 +
+        (parseFloat(event.target.value) * Math.PI) / 180
+    );
   }
 
   const handleExecuteTransformation = () => {
@@ -63,46 +78,43 @@ function Controls(props) {
       <div className="buttons">
         <button onClick={handleExecuteTransformation}>Execute</button>
       </div>
-      <h2>Position</h2>
+      <h2>Translation</h2>
       <div className="positionControlGroup">
         <div className="control">
-          <label className="labelX"> X Position </label>
+          <label className="labelX"> X Translate </label>
           <input
             type="number"
             min="-100"
             max="100"
             onChange={handleXPositionChange}
             step="any"
-            value={PX}
           />
         </div>
         <div className="control">
-          <label className="labelY"> Y Position </label>
+          <label className="labelY"> Y Translate </label>
           <input
             type="number"
             min="-100"
             max="100"
             onChange={handleYPositionChange}
             step="any"
-            value={PY}
           />
         </div>
         <div className="control">
-          <label className="labelZ"> Z Position </label>
+          <label className="labelZ"> Z Translate </label>
           <input
             type="number"
             min="-100"
             max="100"
             onChange={handleZPositionChange}
             step="any"
-            value={PZ}
           />
         </div>
       </div>
       <h2>Rotation</h2>
       <div className="rotationControlGroup">
         <div className="control">
-          <label className="labelX"> X Rotation </label>
+          <label className="labelX"> X Rotate </label>
           <input
             type="number"
             min="-180"
@@ -112,7 +124,7 @@ function Controls(props) {
           />
         </div>
         <div className="control">
-          <label className="labelY"> Y Rotation </label>
+          <label className="labelY"> Y Rotate </label>
           <input
             type="number"
             min="-180"
@@ -122,7 +134,7 @@ function Controls(props) {
           />
         </div>
         <div className="control">
-          <label className="labelZ"> Z Rotation </label>
+          <label className="labelZ"> Z Rotate </label>
           <input
             type="number"
             min="-180"
@@ -131,6 +143,27 @@ function Controls(props) {
             step="any"
           />
         </div>
+      </div>
+      <h2>Current Pose</h2>
+      <div className="pose">
+        <label className="labelX">
+          X Pos: {state.context.currentPosition.x}
+        </label>
+        <label className="labelY">
+          Y Pos: {state.context.currentPosition.y}
+        </label>
+        <label className="labelZ">
+          Z Pos: {state.context.currentPosition.z}
+        </label>
+        <label className="labelX">
+          X Rot: {state.context.currentRotation.x}
+        </label>
+        <label className="labelY">
+          Y Rot: {state.context.currentRotation.y}
+        </label>
+        <label className="labelZ">
+          Z Rot: {state.context.currentRotation.z}
+        </label>
       </div>
     </div>
   );

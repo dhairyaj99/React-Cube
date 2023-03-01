@@ -41,7 +41,7 @@ function Card({ px, py, pz, rx, ry, rz, onChange }) {
   return (
     <div className="card">
       <div className="control">
-        <h2>Position</h2>
+        <h2>Translate</h2>
         <label className="labelX">
           X:{' '}
           <input
@@ -74,7 +74,7 @@ function Card({ px, py, pz, rx, ry, rz, onChange }) {
         </label>
       </div>
       <div className="control">
-        <h2>Rotation</h2>
+        <h2>Rotate</h2>
         <label className="labelX">
           X:{' '}
           <input
